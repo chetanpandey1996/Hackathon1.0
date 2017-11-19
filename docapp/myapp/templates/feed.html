@@ -1,0 +1,114 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Health Prediction</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet"  type="text/css" media="screen" href="{% static "design.css" %}" />
+    <style>
+       body{ background-color:lightgrey;}
+       h1 {color:blue;
+           text-align:center;
+           border:5px solid black;)
+        p {color:red;)
+        #dm{
+        border-style:solid;
+        border-color:black;
+        border-width:5px;
+        }
+       .h{
+       border:5px solid blue;
+       }
+       #user_name{
+       background-color:black;
+       }
+       #t1{
+       table-border:5px solid black;
+       }
+    </style>
+</head>
+
+<body>
+<center>
+    <h1 id="hr">Health Predictor</h1>
+    <h2 id="r">Please Enter your body sympotoms</h2>
+    <form method="post" action="/symptoms/">
+        {%csrf_token %}
+    <table>
+        <tr>
+            <td>1st Symptom :</td>
+            <td><input type="text" name="sym1" required="TRUE"></td>
+        </tr>
+         <tr>
+            <td>2nd Symptom :</td>
+            <td><input type="text" name="sym2"></td>
+        </tr>
+         <tr>
+            <td>3rd Symptom :</td>
+            <td><input type="text" name="sym3"></td>
+        </tr>
+         <tr>
+            <td>4th Symptom :</td>
+            <td><input type="text" name="sym4"></td>
+        </tr>
+         <tr>
+             <td></td>
+            <td><input type="submit" name="submit" value="Predict"></td>
+
+        </tr>
+       <!-- <tr>
+            <td>You are prone to :     </td>
+            <td>
+                <p style="font color:red"> {{predict}}   </p>
+            </td>
+        </tr>  -->
+    </table>
+    </form>
+
+    <div id="myDIV">
+
+
+    <h2>You are prone to</h2>
+    <h3>{{predict}}</h3>
+     <br> <br> <br>
+
+     <h1 id="h">Doctor Details</h1>
+
+    <table align="center" border=1 cellspacing="40" cellpadding="40">
+        <tr>
+        <th>Doctor Id</th>
+        <th>Doctor Name</th>
+        <th>Doctor Specialisation</th>
+            <th>Book Appointment</th>
+
+
+             <td></td>
+        </tr>
+    </table>
+
+    </div>
+
+    <br> <br> <br>
+<h1 id="h">News</h1>
+{% for pt in posts %}
+
+  <div  id="dm" style="height : 20%">
+      <table id="t1">
+          <hr color="black" >
+          <tr><div id = "user_name">{{ pt.heading }}</div></tr> <br> <br>
+    <img src="{{ pt.image }}" alt="no Image" height="40px" width="40px" ><br></hr>
+      <div id = "definition">{{pt.definition}}</div>
+        <a href="{{pt.news_url}}">Read Full News</a>
+      </table>
+    </div>
+{% endfor %}
+</center>
+
+</body>
+
+</html>
